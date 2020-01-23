@@ -7,6 +7,9 @@ Reports unhandled exceptions and saves reports in app directory
 
 ## Changelog
 
+### 1.2.4 
+- getLogs, cleanLogs
+
 ### 1.2.3 
 - Fix: updated plugin.xml @spec attr
 
