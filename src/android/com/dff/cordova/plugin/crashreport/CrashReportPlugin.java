@@ -7,10 +7,12 @@ import android.Manifest;
 import android.util.Log;
 import com.dff.cordova.plugin.common.CommonPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.List;
 
 /**
  * @author frank
@@ -104,6 +106,14 @@ public class CrashReportPlugin extends CommonPlugin {
             });
 
             return true;
+        } else if (action.equals("getLogs")) {
+          JSONArray logs = this.crashReporter.getLogList(cordova.getContext());
+          PluginResult result = new PluginResult(PluginResult.Status.OK, logs);
+          result.setKeepCallback(true);
+          callbackContext.sendPluginResult(result);
+        } else if (action.equals("cleanLogs")) {
+          this.crashReporter.cleanLogs(cordova.getContext());
+          return true;
         }
 
         return super.execute(action, args, callbackContext);

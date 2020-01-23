@@ -16,6 +16,7 @@ var self = {};
 var actions = [
     "onLog",
     "onCrash",
+    "cleanLogs",
     "throwUncaughtException",
     "throwUncaughtExceptionOnUi",
     "throwUncaughtExceptionOnThreadPool"
@@ -30,6 +31,12 @@ function createActionFunction (action) {
 actions.forEach(function (action) {
     self[action] = createActionFunction(action);
 });
+
+
+self["getLogs"] = function (success, error) {
+    cordova.exec(success, error, feature, "getLogs", []);
+}
+
 
 channel.onCordovaReady.subscribe(function () {
     self.onCrash(function (crashReport) {
